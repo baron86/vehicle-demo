@@ -1,0 +1,126 @@
+<div class="container">
+	<h2>Update Vehicle</h2>
+	<p>Save updated vehicle</p>
+
+	<hr>
+
+	<a class="btn btn-primary mb-3" ng-click="vm.save()" title="Save vehicle"
+		ng-disabled="!vm.isValidForm"><i class="glyphicon glyphicon-save"></i> Save</a> <a style="float: right"
+		ui-sref="list">Back to list</a><br> <br>
+	<div class="panel panel-info">
+		<div class="panel-heading">Vehicle Detail</div>
+		<div class="panel-body">
+			<form name="vehicleForm" novalidate>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="form-group"
+							ng-class="{ 'has-error': vehicleForm.make.$dirty && vehicleForm.make.$error.required }">
+							<label class="text-muted mandatory" for="make">Make </label> <input
+								type="text" name="make" class="form-control" id="make"
+								ng-model="vm.vehicle.make" ng-required="true"
+								ng-change="vm.validate()" ng-maxlength="255"
+								autocomplete="new-password" required> <span
+								ng-show="vehicleForm.make.$dirty && vehicleForm.make.$error.required"
+								class="help-block">Make is required</span>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group"
+							ng-class="{ 'has-error': vehicleForm.model.$dirty && vehicleForm.model.$error.required }">
+							<label class="text-muted mandatory" for="model">Model </label> <input
+								type="text" name="model" class="form-control" id="model"
+								ng-model="vm.vehicle.model" ng-required="true"
+								ng-change="vm.validate()" ng-maxlength="255"
+								autocomplete="new-password" required> <span
+								ng-show="vehicleForm.model.$dirty && vehicleForm.model.$error.required"
+								class="help-block">Model is required</span>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group"
+							ng-class="{ 'has-error': vehicleForm.edition.$dirty && vehicleForm.edition.$error.required }">
+							<label class="text-muted mandatory" for="edition">Edition
+							</label> <input type="text" name="edition" class="form-control"
+								id="edition" ng-model="vm.vehicle.edition" ng-required="true"
+								ng-change="vm.validate()" ng-maxlength="255"
+								autocomplete="new-password" required> <span
+								ng-show="vehicleForm.edition.$dirty && vehicleForm.edition.$error.required"
+								class="help-block">Edition is required</span>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group"
+							ng-class="{ 'has-error': vehicleForm.price.$dirty && vehicleForm.price.$error.required }">
+							<label class="text-muted mandatory" for="price">Price
+								&euro;</label> <input type="number" name="price" class="form-control"
+								id="price" ng-model="vm.vehicle.price" ng-required="true"
+								ng-change="vm.validate()" ng-maxlength="11"
+								autocomplete="new-password" required> <span
+								ng-show="vehicleForm.price.$dirty && vehicleForm.price.$error.required"
+								class="help-block">Vehicle price is required</span>
+						</div>
+					</div>
+				</div>
+
+			</form>
+
+		</div>
+	</div>
+
+	<div class="panel panel-success" ng-repeat="option in vm.options">
+		<div class="panel-heading shadow">
+			Vehicle Option {{ $index + 1 }} <span class="italics">(Optional)</span><a
+				style="float: right; cursor: pointer;" class="text-danger"
+				ng-click="vm.removeOption(option)">Clear</a>
+			<div class="clearfix"></div>
+		</div>
+		<div class="panel-body">
+			<form name="form" role="form" novalidate>
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="text-muted mandatory">Option Type</label> <select									
+									ng-change="vm.validateOptions()" class="form-control"
+									ng-model="option.optionType.name"
+									ng-change="vm.validate()"	
+									ng-options= "optionType.name as optionType.name for optionType in vm.optionTypes">
+								</select>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group"
+								ng-class="{ 'has-error': form.optionprice.$dirty && form.optionprice.$error.required }">
+								<label class="text-muted mandatory" for="optionprice">Price
+									&euro;</label> <input type="number" name="optionprice"
+									class="form-control" id="optionprice" ng-model="option.price"
+									ng-required="true" ng-maxlength="11" ng-change="vm.validate()"
+									autocomplete="new-password" required> <span
+									ng-show="form.optionprice.$dirty && form.optionprice.$error.required"
+									class="help-block">Option price is required</span>
+							</div>
+						</div>
+						<div class="col-md-4"></div>
+
+					</div>
+
+
+				</div>
+			</form>
+		</div>
+	</div>
+	<button ng-click="vm.addOption()" type="button" style="float: right" title="Add option" 
+		class="btn btn-success btn-circle">
+		<i class="glyphicon glyphicon-plus"></i>
+	</button>
+	<br>
+	<br>
+
+	<div
+		ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }"
+		ng-if="flash" ng-bind="flash.message">
+		<input focus-me="vm.isFlashFocus" style="display: hidden">
+	</div>
+
+
+</div>

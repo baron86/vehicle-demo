@@ -1,0 +1,87 @@
+<div class="container">
+	
+	<h2>Vehicle Price List</h2>
+	<p>Vehicle price list with optional extras</p>
+	
+	<hr>
+	
+	<p class="italics"  style="float:right">*Currency &euro;</p>
+	<a  class="btn btn-primary mb-3" ui-sref="add"><i class="glyphicon glyphicon-plus"></i> Add vehicle</a>
+	<button ng-click="focusInput=true" type="button" class="btn btn-basic mb-3" data-toggle="modal" data-target="#newOptionModal"><i class="glyphicon glyphicon-plus"></i> Add option type</button>
+	<button type="button" class="btn btn-basic mb-3" ng-click="vm.exportCSV()"><i class="glyphicon glyphicon-export"></i> Export CSV</button>
+	<br><br>
+	<div class="container">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th ng-repeat="(key, val) in vm.vehicleTableArray[0]">{{ key }}</th>
+				<th>action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="row in vm.vehicleTableArray">
+				<td ng-repeat="column in row">{{ column }}</td>
+				<td><a  title="Edit"						
+						class="btn btn-info" 
+						ng-click='vm.update(row.id)' ><i class="glyphicon glyphicon-edit"></i></a> 
+					<a						
+						class="btn btn-danger" 
+						title="Delete"
+						ng-click='vm.delete(row.id)'><i class="glyphicon glyphicon-remove"></i></a></td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	<!-- Modal -->
+	<div id="newOptionModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">New Option Type</h4>
+	      </div>
+	      <form name="optionForm" novalidate>
+	      <div class="modal-body">
+	        <div class="row">
+					<div class="col-md-6">
+						<div class="form-group"
+							ng-class="{ 'has-error': optionForm.optionName.$dirty && optionForm.optionName.$error.required }">
+							<label class="text-muted mandatory" for="optionName">Name </label> <input
+								type="text" name="optionName" class="form-control" id="optionName"
+								ng-model="vm.optionName" ng-required="true"
+								ng-change="vm.validateOption()" ng-maxlength="255"
+								autocomplete="new-password" required  ng-trim="true" focus-me="focusInput"> <span
+								ng-show="optionForm.optionName.$dirty && optionForm.optionName.$error.required"
+								class="help-block">Option name is required</span>
+						</div>
+					</div>
+				</div>
+
+
+						<div
+							ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }"
+							ng-if="flash" ng-bind="flash.message">
+							<input focus-me="vm.isFlashFocus" style="display: hidden">
+						</div>
+					</div>
+	      </form>
+	      <div class="modal-footer">
+	      	<button ng-disabled="!vm.isValidOptionForm" ng-click="vm.SaveOptionType()" type="button" class="btn btn-success" data-dismiss="modal" title="Save option type"><i class="glyphicon glyphicon-save"></i> Save</button>
+	      </div>
+	    </div>
+	
+	  </div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</div>

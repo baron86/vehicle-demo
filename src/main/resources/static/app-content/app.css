@@ -1,0 +1,6 @@
+.italics {
+	font-style: italic;
+}
+label.mandatory::after {
+  content: " *";
+}
